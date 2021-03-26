@@ -59,6 +59,8 @@ public class Main {
 
                 } else if(closedList.contains(neighborUp)) {
 
+                } else if(neighborUp.equals(goalNode)) {
+                    System.out.println("GOAL NODE FOUND!!");
                 } else {
                     neighborUp.setG(currentNode.getG() + 10);
                     neighborUp.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
@@ -78,6 +80,8 @@ public class Main {
 
                 } else if(closedList.contains(neighborDown)) {
 
+                } else if(neighborDown.equals(goalNode)) {
+                    System.out.println("GOAL NODE FOUND!!");
                 } else {
                     neighborDown.setG(currentNode.getG() + 10);
                     neighborDown.setH(Math.abs(neighborDown.getCol() - neighborDown.getCol()) + Math.abs(neighborDown.getRow() - neighborDown.getRow()));
@@ -86,6 +90,7 @@ public class Main {
                     openList.add(neighborDown);
                 }
             }
+
             Node neighborLeft = generateLeftNeighbor(currentNode);
             if(neighborLeft != null) {
                 temp = neighborLeft;
@@ -96,14 +101,17 @@ public class Main {
 
                 } else if(closedList.contains(neighborLeft)) {
 
+                } else if(neighborLeft.equals(goalNode)) {
+                    System.out.println("GOAL NODE FOUND!!");
                 } else {
                     neighborLeft.setG(currentNode.getG() + 10);
-                    neighborLeft.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
+                    neighborLeft.setH(Math.abs(neighborLeft.getCol() - neighborLeft.getCol()) + Math.abs(neighborLeft.getRow() - neighborLeft.getRow()));
                     neighborLeft.setF();
                     neighborLeft.setParent(currentNode);
                     openList.add(neighborLeft);
                 }
             }
+
             Node neighborRight = generateRightNeighbor(currentNode);
             if(neighborRight != null) {
                 temp = neighborRight;
@@ -114,9 +122,11 @@ public class Main {
 
                 } else if(closedList.contains(neighborRight)) {
 
+                } else if(neighborRight.equals(goalNode)) {
+                    System.out.println("GOAL NODE FOUND!!");
                 } else {
                     neighborRight.setG(currentNode.getG() + 10);
-                    neighborRight.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
+                    neighborRight.setH(Math.abs(neighborRight.getCol() - neighborRight.getCol()) + Math.abs(neighborRight.getRow() - neighborRight.getRow()));
                     neighborRight.setF();
                     neighborRight.setParent(currentNode);
                     openList.add(neighborRight);
@@ -163,7 +173,7 @@ public class Main {
     }
 
     public static Node generateUpNeighbor(Node node) {
-        if(node.getRow() < 0) {
+        if(node.getRow() == 0) {
             return null;
         } else {
             node = map[node.getCol()][node.getRow() - 1];
@@ -176,7 +186,7 @@ public class Main {
     }
 
     public static Node generateDownNeighbor(Node node) {
-        if(node.getRow() < 14) {
+        if(node.getRow() == 14) {
             return null;
         } else {
             node = map[node.getCol()][node.getRow() + 1];
@@ -189,7 +199,7 @@ public class Main {
     }
 
     public static Node generateLeftNeighbor(Node node) {
-        if(node.getCol() > 0) {
+        if(node.getCol() == 0) {
             return null;
         } else {
             node = map[node.getCol() - 1][node.getRow()];
@@ -202,7 +212,7 @@ public class Main {
     }
 
     public static Node generateRightNeighbor(Node node) {
-        if(node.getCol() < 14) {
+        if(node.getCol() == 14) {
             return null;
         } else {
             node = map[node.getCol() + 1][node.getRow()];
