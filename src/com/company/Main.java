@@ -38,7 +38,7 @@ public class Main {
 
         Node startNode = map[xCoordinateStartNode][yCoordinateStartNode];
         Node goalNode = map[xCoordinateGoalNode][yCoordinateGoalNode];
-        Node currentNode = startNode;
+        Node currentNode;
         startNode.setG(0);
         startNode.setH(Math.abs(startNode.getCol() - goalNode.getCol()) + Math.abs(startNode.getRow() - goalNode.getRow()));
         startNode.setF();
@@ -48,13 +48,82 @@ public class Main {
         while (!openList.isEmpty()) {
 
             currentNode = openList.stream().min(Comparator.comparingInt(Node::getF)).get();
+            Node temp;
             Node neighborUp = generateUpNeighbor(currentNode);
+            if(neighborUp != null) {
+                temp = neighborUp;
+                temp.setG(currentNode.getG() + 10);
+                temp.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
+                temp.setF();
+                if(openList.contains(neighborUp) && openList.get(openList.indexOf(neighborUp)).getF() < temp.getF()) {
+
+                } else if(closedList.contains(neighborUp)) {
+
+                } else {
+                    neighborUp.setG(currentNode.getG() + 10);
+                    neighborUp.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
+                    neighborUp.setF();
+                    neighborUp.setParent(currentNode);
+                    openList.add(neighborUp);
+                }
+            }
+
             Node neighborDown = generateDownNeighbor(currentNode);
+            if(neighborDown != null) {
+                temp = neighborDown;
+                temp.setG(currentNode.getG() + 10);
+                temp.setH(Math.abs(neighborDown.getCol() - neighborDown.getCol()) + Math.abs(neighborDown.getRow() - neighborDown.getRow()));
+                temp.setF();
+                if(openList.contains(neighborDown) && openList.get(openList.indexOf(neighborDown)).getF() < temp.getF()) {
+
+                } else if(closedList.contains(neighborDown)) {
+
+                } else {
+                    neighborDown.setG(currentNode.getG() + 10);
+                    neighborDown.setH(Math.abs(neighborDown.getCol() - neighborDown.getCol()) + Math.abs(neighborDown.getRow() - neighborDown.getRow()));
+                    neighborDown.setF();
+                    neighborDown.setParent(currentNode);
+                    openList.add(neighborDown);
+                }
+            }
             Node neighborLeft = generateLeftNeighbor(currentNode);
+            if(neighborLeft != null) {
+                temp = neighborLeft;
+                temp.setG(currentNode.getG() + 10);
+                temp.setH(Math.abs(neighborLeft.getCol() - neighborLeft.getCol()) + Math.abs(neighborLeft.getRow() - neighborLeft.getRow()));
+                temp.setF();
+                if(openList.contains(neighborLeft) && openList.get(openList.indexOf(neighborLeft)).getF() < temp.getF()) {
+
+                } else if(closedList.contains(neighborLeft)) {
+
+                } else {
+                    neighborLeft.setG(currentNode.getG() + 10);
+                    neighborLeft.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
+                    neighborLeft.setF();
+                    neighborLeft.setParent(currentNode);
+                    openList.add(neighborLeft);
+                }
+            }
             Node neighborRight = generateRightNeighbor(currentNode);
+            if(neighborRight != null) {
+                temp = neighborRight;
+                temp.setG(currentNode.getG() + 10);
+                temp.setH(Math.abs(neighborRight.getCol() - neighborRight.getCol()) + Math.abs(neighborRight.getRow() - neighborRight.getRow()));
+                temp.setF();
+                if(openList.contains(neighborRight) && openList.get(openList.indexOf(neighborRight)).getF() < temp.getF()) {
 
+                } else if(closedList.contains(neighborRight)) {
+
+                } else {
+                    neighborRight.setG(currentNode.getG() + 10);
+                    neighborRight.setH(Math.abs(neighborUp.getCol() - neighborUp.getCol()) + Math.abs(neighborUp.getRow() - neighborUp.getRow()));
+                    neighborRight.setF();
+                    neighborRight.setParent(currentNode);
+                    openList.add(neighborRight);
+                }
+            }
             openList.remove(currentNode);
-
+            closedList.add(currentNode);
         }
     }
 
